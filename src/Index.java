@@ -2,6 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class Index {
 
 	public void initProject() {
 		// make objects folder
-		Path obj = Paths.get("objects");
+		Path obj = Paths.get(".\\objects");
 		// tbh i dont think this is how ur meant to use a try catch block but i will do it until issues arise
 		try {
 			Files.createDirectory(obj);
@@ -40,7 +41,7 @@ public class Index {
 		}
 		
 		// make index file 
-		Path idx = Paths.get("index");
+		Path idx = Paths.get(".\\index");
 		try {
 			Files.createFile(idx);
 		} catch (FileAlreadyExistsException e) {
@@ -58,7 +59,7 @@ public class Index {
 		}
 		
 		// overwrite contents of index file
-		FileWriter f = new FileWriter("index", false);
+		FileWriter f = new FileWriter(".\\index", false);
 		f.write(sb.toString());
 		f.close();
 	}
@@ -74,7 +75,19 @@ public class Index {
 	}
 	
 	public void removeBlob(String filename) {
+		// delete file in objects folder
+		try {
+			Files.deleteIfExists(Paths.get(".\\objects\\" + this.map.get(filename)));
+		} catch (NoSuchFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// remove from hashmap
 		this.map.remove(filename);
+		
+		// remove from index file
 		try {
 			updateIndex();
 		} catch (IOException e) {

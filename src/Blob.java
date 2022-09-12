@@ -35,7 +35,7 @@ public class Blob {
 		this.SHA1_HASH = encrypt(content);
 		
 		// write new file with sha1 as the name
-		Path np = Paths.get("./objects/" + this.SHA1_HASH);
+		Path np = Paths.get(".\\objects\\" + this.SHA1_HASH);
 		try {
 			Files.writeString(np, content, StandardCharsets.ISO_8859_1);
 		} catch (IOException e) {
