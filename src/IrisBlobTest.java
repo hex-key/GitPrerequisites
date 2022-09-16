@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -120,7 +121,34 @@ class IrisBlobTest {
 			newContent += (char)secondReader.read();
 		}
 		
+		// I'm using a .contains() here because the order might be a bit weird
+		// Iris (and the rest of us) used a for each loop and a hashmap to rewrite
+		// index. Because hashmaps are sorted by hash functions and not by alphabetical
+		// or chronological order, I think it's best to use .contains() instead of assuming
+		// that one comes before or after the other.
 		assertTrue(newContent.contains("secondTest.txt : 4a4e0e220c01d6170a3e057cc39c322c3bdd0755\n") && newContent.contains("thirdTest.txt : a4e554c577ef9ab5e4b71e9197ec70c95f715b02\n"));
+	}
+	
+	@Test
+	void testIndexRemove() throws IOException {
+		
+		index.removeBlob("secondTest.txt");
+		
+		String newContent = "";
+
+		BufferedReader secondReader = new BufferedReader(new FileReader("index"));
+
+		while (secondReader.ready()) {
+			newContent += (char)secondReader.read();
+		}
+		
+		// check that index contains the stuff it should but also has the secondTest removed
+		assertTrue(!newContent.contains("secondTest.txt : 4a4e0e220c01d6170a3e057cc39c322c3bdd0755\n") && newContent.contains("thirdTest.txt : a4e554c577ef9ab5e4b71e9197ec70c95f715b02\n"));
+		
+		File deleted = new File("./objects/4a4e0e220c01d6170a3e057cc39c322c3bdd0755");
+		assertTrue(!deleted.exists());
+		
+		
 	}
 	
 	
