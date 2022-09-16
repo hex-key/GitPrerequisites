@@ -113,6 +113,8 @@ class IrisBlobTest {
 		
 		index.addBlob("thirdTest.txt");
 		
+		reader.close();
+		
 		String newContent = "";
 		
 		BufferedReader secondReader = new BufferedReader(new FileReader("index"));
@@ -127,6 +129,8 @@ class IrisBlobTest {
 		// or chronological order, I think it's best to use .contains() instead of assuming
 		// that one comes before or after the other.
 		assertTrue(newContent.contains("secondTest.txt : 4a4e0e220c01d6170a3e057cc39c322c3bdd0755\n") && newContent.contains("thirdTest.txt : a4e554c577ef9ab5e4b71e9197ec70c95f715b02\n"));
+	
+		secondReader.close();
 	}
 	
 	@Test
@@ -134,21 +138,25 @@ class IrisBlobTest {
 		
 		index.removeBlob("secondTest.txt");
 		
+		assertFalse(index.map.containsKey("secondTest.txt"));
+		
 		String newContent = "";
-
-		BufferedReader secondReader = new BufferedReader(new FileReader("index"));
-
-		while (secondReader.ready()) {
-			newContent += (char)secondReader.read();
+		
+		File deleted = new File("./objects/4a4e0e220c01d6170a3e057cc39c322c3bdd0755");
+		assertFalse(deleted.exists());
+		
+		BufferedReader thirdReader = new BufferedReader(new FileReader("index"));
+		
+		while (thirdReader.ready()) {
+			newContent += (char)thirdReader.read();
 		}
+		
+		System.out.println(newContent);
 		
 		// check that index contains the stuff it should but also has the secondTest removed
 		assertTrue(!newContent.contains("secondTest.txt : 4a4e0e220c01d6170a3e057cc39c322c3bdd0755\n") && newContent.contains("thirdTest.txt : a4e554c577ef9ab5e4b71e9197ec70c95f715b02\n"));
 		
-		File deleted = new File("./objects/4a4e0e220c01d6170a3e057cc39c322c3bdd0755");
-		assertTrue(!deleted.exists());
-		
-		
+		thirdReader.close();
 	}
 	
 	
