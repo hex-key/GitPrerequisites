@@ -14,7 +14,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class IrisBlobTest {
+class ElliotTester {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -92,6 +92,8 @@ class IrisBlobTest {
 		}
 		
 		assertTrue(content.equals("First testing file"));
+		
+		reader.close();
 	}
 	
 	@Test

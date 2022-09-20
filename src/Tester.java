@@ -10,6 +10,7 @@ public class Tester {
 		System.out.println("check stuff now");
 		String s = kb.next();
 		i.removeBlob("funContent.txt");
+		kb.close();
 	}
 
 }

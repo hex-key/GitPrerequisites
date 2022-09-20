@@ -5,12 +5,9 @@ public class TreeTester {
 		
 		ArrayList<String> test = new ArrayList<String>();
 		
-		test.add("blob : hash1");
-		test.add("tree: hash2");
-		test.add("blob : hash3");
+		Blob blob1 = new Blob 
 		
 		Tree testTree = new Tree(test);
 		
 	}
-
 }
