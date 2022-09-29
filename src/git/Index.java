@@ -1,3 +1,4 @@
+package git;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -22,7 +23,7 @@ public class Index {
 		Deletes the blob saved in the 'objects' folder
 	 */
 	
-	HashMap<String, String> map;
+	public HashMap<String, String> map;
 	
 	public Index() { 
 		this.map = new HashMap<String, String>();

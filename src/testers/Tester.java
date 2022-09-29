@@ -1,4 +1,7 @@
+package testers;
 import java.util.Scanner;
+
+import git.Index;
 
 public class Tester {
 

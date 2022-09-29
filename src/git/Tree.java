@@ -1,3 +1,4 @@
+package git;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -30,7 +31,7 @@ public class Tree {
 			
 			int colon = pair.indexOf(':');
 			
-			content += pair.substring(0, colon) + " : " + pair.substring(colon+2) + "\n";
+			content += pair.substring(0, colon) + " : " + pair.substring(colon+2) + "something.txt" + "\n";
 			
 		}
 		

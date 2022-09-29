@@ -1,4 +1,7 @@
+package testers;
 import java.util.ArrayList;
+
+import git.Tree;
 
 public class ElliotTreeTester {
 	public static void main (String [] args) {
